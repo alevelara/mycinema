@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "rnthNBgTdUTmXjDjE+WOQ/Cc+ukbcFlYp2QpLKBdiyX7x39bSahEJFR+CkMIcy5s66B3iB7d1Q/N6bqpeSYnfw==",
+  "success": true,
+  "projectFilePath": "E:\\Proyectos\\appspace\\Mycinema\\Mycinema.Application\\Mycinema.Application.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Alejandro\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
