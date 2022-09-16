@@ -7,6 +7,5 @@ public interface IUnitOfWork : IDisposable
 {    
     Task BeginAsync();    
     Task CommitAsync();    
-    Task RollbackAsync();
-    IAsyncReadRepository<TEntity> ReadRepository<TEntity>() where TEntity : BaseDomainModel;    
+    Task RollbackAsync();    
 }

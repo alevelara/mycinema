@@ -43,22 +43,5 @@ public class UnitOfWork : IUnitOfWork
     public async Task RollbackAsync()
     {
         await _transaction.RollbackAsync();
-    }
-    
-    public IAsyncReadRepository<TEntity> ReadRepository<TEntity>() where TEntity : BaseDomainModel
-    {
-        if (_readRepostories == null)
-            _readRepostories = new Hashtable();
-
-        var nameType = typeof(TEntity).Name;
-
-        if (!_readRepostories.ContainsKey(nameType))
-        {
-            var repositoryType = typeof(GenericReadRepository<TEntity>);
-            var repositoryInstance = Activator.CreateInstance(repositoryType.MakeGenericType(typeof(TEntity)), _transaction);
-            _readRepostories.Add(nameType, repositoryInstance);
-        }
-
-        return (IAsyncReadRepository<TEntity>)_readRepostories[nameType];
-    }
+    }       
 }

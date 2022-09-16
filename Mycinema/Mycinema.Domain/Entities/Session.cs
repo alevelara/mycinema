@@ -22,4 +22,3 @@ public class Session : BaseDomainModel
         SeatsSold = seatsSold;
     }
 }
-}
