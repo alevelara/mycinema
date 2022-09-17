@@ -10,10 +10,11 @@ public class Cinema : BaseDomainModel
 
     public virtual City City{ get; private set; }
 
-    public Cinema(string name, DateTime openSince)
+    public Cinema(int id, string name, DateTime openSince, int cityId) : base(id)
     {
         Name = name;
         OpenSince = openSince;
+        CityId = cityId;
     }
 
 

@@ -26,6 +26,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mycinema.Domain", "Mycinema
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mycinema.Infrastructure", "Mycinema.Infrastructure\Mycinema.Infrastructure.csproj", "{9464E511-6FFB-41D0-9EB6-EC5789B7D624}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mycinema.Infrastructure.IntegrationTests", "Mycinema.Infrastructure.IntegrationTests\Mycinema.Infrastructure.IntegrationTests.csproj", "{F33E6AF0-1681-4C95-8C03-F488078A7532}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +50,10 @@ Global
 		{9464E511-6FFB-41D0-9EB6-EC5789B7D624}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9464E511-6FFB-41D0-9EB6-EC5789B7D624}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9464E511-6FFB-41D0-9EB6-EC5789B7D624}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F33E6AF0-1681-4C95-8C03-F488078A7532}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F33E6AF0-1681-4C95-8C03-F488078A7532}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F33E6AF0-1681-4C95-8C03-F488078A7532}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F33E6AF0-1681-4C95-8C03-F488078A7532}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +66,7 @@ Global
 		{14C0F01B-D03D-45B4-8E61-DDBC8BAB64F3} = {FFB54707-8B1B-49EC-8DBE-A2B1AB3D3048}
 		{D47FF186-2A59-4899-9519-10C5DB3D0213} = {FFB54707-8B1B-49EC-8DBE-A2B1AB3D3048}
 		{9464E511-6FFB-41D0-9EB6-EC5789B7D624} = {D62D6C2C-03C3-41FA-899D-634CC84E29DD}
+		{F33E6AF0-1681-4C95-8C03-F488078A7532} = {29710FBB-BBE5-4A17-9CB9-21C3FC93943E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {007E5D23-4A66-4B77-B2C1-D30A9F4D4DAB}

@@ -10,7 +10,7 @@ public class Movie : BaseDomainModel
     public bool Adult { get; private set; } = false;
     public virtual ICollection<Genre> Genres { get; private set; }
 
-    public Movie(string originalTitle, DateTime releaseDate, string originalLanguage, bool adult)
+    public Movie(int id, string originalTitle, DateTime releaseDate, string originalLanguage, bool adult) : base(id)
     {
         OriginalTitle = originalTitle;
         ReleaseDate = releaseDate;

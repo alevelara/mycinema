@@ -11,10 +11,11 @@ public class Room : BaseDomainModel
 
     public virtual Cinema Cinema { get; set; }
 
-    public Room(string name, string size, int seats)
+    public Room(int id, string name, string size, int seats, int cinemaId) : base(id)
     {
         Name = name;
         Size = size;
         Seats = seats;
+        CinemaId = cinemaId;
     }
 }

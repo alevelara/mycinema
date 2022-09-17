@@ -13,7 +13,7 @@ public class Session : BaseDomainModel
     public virtual Room Room { get; private set; }
     public virtual Movie Movie{ get; private set; }
 
-    public Session(int roomId, int movieId, DateTime startTime, DateTime endTime, int? seatsSold)
+    public Session(int id, int roomId, int movieId, DateTime startTime, DateTime endTime, int? seatsSold) : base(id)
     {
         RoomId = roomId;
         MovieId = movieId;

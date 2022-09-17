@@ -1,5 +1,4 @@
 ﻿using Dapper;
-using Microsoft.Extensions.Configuration;
 using Mycinema.Application.Contracts.Repositories;
 using Mycinema.Domain.Common;
 using System.Data.Common;
@@ -29,7 +28,7 @@ public class GenericReadRepository<T> : IAsyncReadRepository<T> where T : BaseDo
             return result.ToList();
         }
     }
-
+    
     public async Task<T> GetByIdAsync(int id)
     {
         var sql = $"SELECT * FROM {entityName} WHERE Id = @Id";
