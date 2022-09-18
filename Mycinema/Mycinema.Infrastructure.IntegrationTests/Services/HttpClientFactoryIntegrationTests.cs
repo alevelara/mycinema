@@ -3,7 +3,6 @@ using Mycinema.Application.Models.DTOs;
 using Mycinema.Infrastructure.Services;
 using System.Net.Http.Json;
 using Xunit;
-using static System.Net.WebRequestMethods;
 
 namespace Mycinema.Infrastructure.IntegrationTests.Services;
 
@@ -21,7 +20,7 @@ public class HttpClientFactoryIntegrationTests
     }
 
     [Fact]
-    public async Task asdasd()
+    public async Task GivenTheDiscoverEndpoint_WhenCallGetAsync_ThenReturnRecommendations()
     {
         var httpClientFactory = new HttpClientFactory(_httpClientFactory.Object);
         var requestParam = uri + "/discover/movie?api_key=f70a1748885aaae8053003cca36baaca";
@@ -30,8 +29,5 @@ public class HttpClientFactoryIntegrationTests
         var results = response.Content.ReadFromJsonAsync<PagedDto<TmdbMovieDto>>();
 
         Assert.NotNull(response);
-
     }
-
-
 }

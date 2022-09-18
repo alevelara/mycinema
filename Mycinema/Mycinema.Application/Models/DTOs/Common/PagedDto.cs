@@ -4,22 +4,8 @@ namespace Mycinema.Application.Models.DTOs;
 
 public class PagedDto<T> where T : class
 {
-    public int page { get; private set; }
-    public T[] results { get; private set; } = new T[0];
-    public int total_pages { get; private set; }
-    public int total_results { get; private set; }
-
-    [JsonConstructor]
-    public PagedDto(int page, T[] results, int totalPages, int totalResults)
-    {
-        this.page = page;
-        this.results = results;
-        this.total_pages = totalPages;
-        this.total_results = totalResults;
-    }
-
-    [JsonConstructor]
-    public PagedDto()
-    {        
-    }
+    public int page { get; set; }
+    public T[] results { get; set; } = new T[0];
+    public int total_pages { get; set; }
+    public int total_results { get; set; }    
 }

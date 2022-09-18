@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using Mycinema.Application.Contracts.Infrastructure;
+﻿using Mycinema.Application.Contracts.Infrastructure;
 
 namespace Mycinema.Infrastructure.Services;
 
@@ -16,13 +15,6 @@ public class HttpClientFactory : IHttpClient
     {
         var request = new HttpRequestMessage(HttpMethod.Get, requestParam);
         var client = _clientFactory.CreateClient("tmdb");
-        try
-        {
-            return await client.SendAsync(request);
-        } 
-        catch  (Exception e)
-        {
-            return null;
-        }
+        return await client.SendAsync(request);              
     }
 }

@@ -21,8 +21,7 @@ namespace Mycinema.Infrastructure
                 return new SqlConnection(configuration.GetConnectionString("ConnectionString"));
             });
 
-            services.AddScoped(typeof(IAsyncReadRepository<>), typeof(GenericReadRepository<>));
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped(typeof(IAsyncReadRepository<>), typeof(GenericReadRepository<>));            
             services.AddHttpClient<IHttpClient, HttpClientFactory>("tmdb", http =>
             {
                 http.BaseAddress = new Uri(uri);
