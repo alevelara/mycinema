@@ -1,9 +1,11 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Mycinema.Application.Contracts.Infrastructure;
 using Mycinema.Application.Contracts.Repositories;
 using Mycinema.Application.Models;
 using Mycinema.Infrastructure.Repositories;
 using Mycinema.Infrastructure.Repositories.Read;
+using Mycinema.Infrastructure.Services;
 using System.Data.Common;
 using System.Data.SqlClient;
 
@@ -21,7 +23,7 @@ namespace Mycinema.Infrastructure
 
             services.AddScoped(typeof(IAsyncReadRepository<>), typeof(GenericReadRepository<>));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddHttpClient("tmdb", http =>
+            services.AddHttpClient<IHttpClient, HttpClientFactory>("tmdb", http =>
             {
                 http.BaseAddress = new Uri(uri);
             });
