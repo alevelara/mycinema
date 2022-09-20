@@ -20,13 +20,16 @@ namespace Mycinema.Infrastructure
             {
                 return new SqlConnection(configuration.GetConnectionString("ConnectionString"));
             });
+            services.AddScoped(typeof(IAsyncReadRepository<>), typeof(GenericReadRepository<>));
 
-            services.AddScoped(typeof(IAsyncReadRepository<>), typeof(GenericReadRepository<>));            
-            services.AddHttpClient<IHttpClient, HttpClientFactory>("tmdb", http =>
+            services.AddHttpClient("tmdb", http =>
             {
                 http.BaseAddress = new Uri(uri);
-            });
+            });            
+            
             services.Configure<TmdbSettings>(conf => configuration.GetSection("TmdbSettings"));
+            services.AddTransient<IHttpClient, HttpClientFactory>();
+            services.AddTransient<IHttpClientService, HttpClientService>();
 
             return services;
         }

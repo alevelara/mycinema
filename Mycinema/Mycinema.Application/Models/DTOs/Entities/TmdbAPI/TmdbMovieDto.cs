@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Mycinema.Application.Models.DTOs;
+namespace Mycinema.Application.Models.DTOs.Entities.TmdbAPI;
 
 public class TmdbMovieDto
 {

@@ -1,5 +1,6 @@
 ﻿using Moq;
 using Mycinema.Application.Models.DTOs;
+using Mycinema.Application.Models.DTOs.Entities.TmdbAPI;
 using Mycinema.Infrastructure.Services;
 using System.Net.Http.Json;
 using Xunit;

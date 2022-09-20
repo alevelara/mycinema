@@ -1,9 +1,10 @@
-﻿using Mycinema.Application.Constants.Tmdb;
+﻿using Microsoft.Extensions.Options;
+using Mycinema.Application.Constants.Tmdb;
 using Mycinema.Application.Contracts.Infrastructure;
 using Mycinema.Application.Exceptions;
 using Mycinema.Application.Models;
 using Mycinema.Application.Models.DTOs;
-using System.Net.Http;
+using Mycinema.Application.Models.DTOs.Entities.TmdbAPI;
 using System.Net.Http.Json;
 
 namespace Mycinema.Infrastructure.Services;
@@ -11,15 +12,15 @@ namespace Mycinema.Infrastructure.Services;
 public class HttpClientService : IHttpClientService
 {
     private TmdbSettings _tmdbSettings { get; }
-    private readonly HttpClientFactory _httpClientFactory;
+    private readonly IHttpClient _httpClientFactory;
 
-    public HttpClientService(TmdbSettings tmdbSettings, HttpClientFactory httpClientFactory)
+    public HttpClientService(IOptions<TmdbSettings> tmdbSettings, IHttpClient httpClientFactory)
     {
-        _tmdbSettings = tmdbSettings;
+        _tmdbSettings = tmdbSettings.Value;
         _httpClientFactory = httpClientFactory;
     }
 
-    public async Task<PagedDto<TmdbMovieDto>> DiscoverMovies(int numberOfTheathers, DateTime startDateTime, DateTime endDateTime)
+    public async Task<PagedDto<TmdbMovieDto>> DiscoverMovies(DateTime startDateTime, DateTime endDateTime)
     {
         var request = $"{_tmdbSettings.UrlBase}{TmdbEndpoints.discoverMovie}?api_key={_tmdbSettings.ApiKey}&primary_release_date.gte={startDateTime.ToString("yyyy-MM-dd")}&primary_release_date.lte={endDateTime.ToString("yyyy-MM-dd")}";
         try
@@ -38,7 +39,7 @@ public class HttpClientService : IHttpClientService
         }
     }
 
-    public async Task<PagedDto<TmdbTvShowDto>> DiscoverTvShows(int numberOfScreens, DateTime startDateTime, DateTime endDateTime)
+    public async Task<PagedDto<TmdbTvShowDto>> DiscoverTvShows(DateTime startDateTime, DateTime endDateTime)
     {
         var request = $"{_tmdbSettings.UrlBase}{TmdbEndpoints.discoverTvShow}?api_key={_tmdbSettings.ApiKey}&primary_release_date.gte={startDateTime.ToString("yyyy-MM-dd")}&primary_release_date.lte={endDateTime.ToString("yyyy-MM-dd")}";
         try
