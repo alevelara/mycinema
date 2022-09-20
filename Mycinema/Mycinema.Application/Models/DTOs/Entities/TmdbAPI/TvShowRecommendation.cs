@@ -6,4 +6,9 @@ public class TvShowRecommendation : Recommendation
         : base(tittle, overview, genres, language, releaseDate, webSite, keywords)
     {
     }
+
+    public TvShowRecommendation() : base()
+    {
+
+    }
 }

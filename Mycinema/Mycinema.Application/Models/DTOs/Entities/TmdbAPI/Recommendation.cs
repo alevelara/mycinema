@@ -20,4 +20,8 @@ public class Recommendation
         WebSite = webSite;
         Keywords = keywords;
     }
+
+    public Recommendation()
+    {
+    }
 }

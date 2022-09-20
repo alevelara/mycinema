@@ -1,11 +1,12 @@
 ﻿using Dapper;
+using Mycinema.Application.Contracts.Repositories;
 using Mycinema.Domain.Entities;
 using System.Data.Common;
 using System.Data.SqlClient;
 
 namespace Mycinema.Infrastructure.Repositories.Read;
 
-public class MovieGenreReadRepository
+public class MovieGenreReadRepository : IMovieGenreReadRepository
 {
     private DbConnection _connection;
 
@@ -58,5 +59,5 @@ public class MovieGenreReadRepository
             var result = await connection.QueryFirstOrDefaultAsync<MovieGenre>(sql, new { GenreId = genreId, MovieId = movieId });
             return result;
         }
-    }
+    }    
 }

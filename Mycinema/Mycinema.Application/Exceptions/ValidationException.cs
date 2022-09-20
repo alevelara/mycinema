@@ -6,7 +6,7 @@ public class ValidationException : ApplicationException
 {
     public IDictionary<string, string[]> Errors { get; }
 
-    public ValidationException() : base("One or more errors has been found")
+    public ValidationException() : base("One or more errors have been found")
     {
         Errors = new Dictionary<string, string[]>();
     }

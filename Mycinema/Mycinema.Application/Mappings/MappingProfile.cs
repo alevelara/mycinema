@@ -36,6 +36,12 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.Language, opt => opt.MapFrom(src => src.original_language))
             .ForMember(dest => dest.ReleaseDate, opt => opt.MapFrom(src => src.release_date));
 
+        CreateMap<Movie, MovieRecommendation>()
+            .ForMember(dest => dest.Tittle, opt => opt.MapFrom(src => src.OriginalTitle))            
+            .ForMember(dest => dest.Genres, opt => opt.MapFrom(src => src.Genres))
+            .ForMember(dest => dest.Language, opt => opt.MapFrom(src => src.OriginalLanguage))
+            .ForMember(dest => dest.ReleaseDate, opt => opt.MapFrom(src => src.ReleaseDate));
+
         CreateMap<TmdbTvShowDto, TvShowRecommendation>()
            .ForMember(dest => dest.Tittle, opt => opt.MapFrom(src => src.name))
            .ForMember(dest => dest.Overview, opt => opt.MapFrom(src => src.overview))

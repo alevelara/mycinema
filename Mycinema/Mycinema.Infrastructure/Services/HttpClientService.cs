@@ -11,7 +11,7 @@ namespace Mycinema.Infrastructure.Services;
 
 public class HttpClientService : IHttpClientService
 {
-    private TmdbSettings _tmdbSettings { get; }
+    private readonly TmdbSettings _tmdbSettings;
     private readonly IHttpClient _httpClientFactory;
 
     public HttpClientService(IOptions<TmdbSettings> tmdbSettings, IHttpClient httpClientFactory)

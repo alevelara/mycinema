@@ -19,4 +19,9 @@ public class Movie : BaseDomainModel
         Genres = new List<Genre>();
     }
 
+    public Movie() : base(0)
+    {
+        Genres = new List<Genre>();
+    }
+
 }

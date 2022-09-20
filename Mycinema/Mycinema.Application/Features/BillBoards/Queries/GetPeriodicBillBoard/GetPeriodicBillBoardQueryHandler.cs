@@ -11,11 +11,11 @@ namespace Mycinema.Application.Features.BillBoards.Queries.GetPeriodicBillBoard;
 public class GetPeriodicBillBoardQueryHandler : IRequestHandler<GetPeriodicBillBoardQuery, BillBoard>
 {
     private readonly IHttpClientService _clientService;
-    private readonly IAsyncReadRepository<Movie> _movieRepository;
+    private readonly IMovieReadRepository _movieRepository;
     private readonly ILogger<GetPeriodicBillBoardQueryHandler> _logger;
     private readonly IMapper _mapper;
 
-    public GetPeriodicBillBoardQueryHandler(IHttpClientService clientService, IAsyncReadRepository<Movie> movieRepository, ILogger<GetPeriodicBillBoardQueryHandler> logger, IMapper mapper)
+    public GetPeriodicBillBoardQueryHandler(IHttpClientService clientService, IMovieReadRepository movieRepository, ILogger<GetPeriodicBillBoardQueryHandler> logger, IMapper mapper)
     {
         _clientService = clientService;
         _movieRepository = movieRepository;
@@ -26,13 +26,24 @@ public class GetPeriodicBillBoardQueryHandler : IRequestHandler<GetPeriodicBillB
     public async Task<BillBoard> Handle(GetPeriodicBillBoardQuery request, CancellationToken cancellationToken)
     {
         var billBoard = new BillBoard();
-        var billboardConfigurator = new BillBoardConfigurator(billBoard);
-        
+        var billboardConfigurator = new BillBoardConfigurator(billBoard);        
+
         List<TvShowRecommendation> tvShowRecommendations = await GetTVShowRecomendations(request.StartDateTime, request.EndDateTime);
+        billboardConfigurator.AddLimitNumberOfTvShowsRecommendations(request.NumberOfScreensForSmallRooms, tvShowRecommendations);
+
         List<MovieRecommendation> moviesRecommendations = await GetMoviesRecomendations(request.StartDateTime, request.EndDateTime);
 
-        billboardConfigurator.AddLimitNumberOfMoviesRecommendations(request.NumberOfScreensForBigRooms, moviesRecommendations);
-        billboardConfigurator.AddLimitNumberOfTvShowsRecommendations(request.NumberOfScreensForSmallRooms, tvShowRecommendations);
+        if (!request.HaveSimilarMovies)
+        {
+            billboardConfigurator.AddLimitNumberOfMoviesRecommendations(request.NumberOfScreensForBigRooms, moviesRecommendations);
+            return billBoard;
+        }
+
+        var similarMovies = await GetMostSuccesfulMoviesFromDb(request.StartDateTime, request.EndDateTime);
+        similarMovies.AddRange(moviesRecommendations);
+        billboardConfigurator.AddLimitNumberOfMoviesRecommendations(request.NumberOfScreensForBigRooms, similarMovies);
+
+        _logger.LogInformation("Billboard created succesfully");
 
         return billBoard;
     }
@@ -49,11 +60,18 @@ public class GetPeriodicBillBoardQueryHandler : IRequestHandler<GetPeriodicBillB
 
     private async Task<List<TvShowRecommendation>> GetTVShowRecomendations(DateTime startDatetime, DateTime endDatetime)
     {
-        List<TvShowRecommendation> tvShowRecommendations = new List<TvShowRecommendation>();
+        List<TvShowRecommendation> tvShowRecommendations = new List<TvShowRecommendation>();        
         var tmdbTvShowRecommendation = await _clientService.DiscoverTvShows(startDatetime, endDatetime);
         if (tmdbTvShowRecommendation != null)
             tvShowRecommendations = _mapper.Map<TmdbTvShowDto[], List<TvShowRecommendation>>(tmdbTvShowRecommendation.results);
 
         return tvShowRecommendations;
     }
+
+    private async Task<List<MovieRecommendation>> GetMostSuccesfulMoviesFromDb(DateTime startDatetime, DateTime endDatetime)
+    {
+        var similarMovies = await _movieRepository.GetMostSuccesfulMoviesByDate(startDatetime, endDatetime);
+        return  _mapper.Map<List<Movie>, List<MovieRecommendation>>(similarMovies);
+    }
+    
 }

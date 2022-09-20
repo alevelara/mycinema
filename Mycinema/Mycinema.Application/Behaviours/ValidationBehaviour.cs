@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using MediatR;
+using ValidationException = Mycinema.Application.Exceptions.ValidationException;
 
 namespace Mycinema.Application.Behaviours;
 

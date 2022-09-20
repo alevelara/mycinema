@@ -20,7 +20,9 @@ public class BillBoardController
 
 	[HttpPost(BillBoardRoutes.GetIntelligentBoard)]
     [ProducesResponseType((int)HttpStatusCode.OK)]
-	public async Task<ActionResult<BillBoard>> GetIntelligentBoard([FromBody] GetPeriodicBillBoardQuery request)
+    [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType((int)HttpStatusCode.NotFound)]
+    public async Task<ActionResult<BillBoard>> GetIntelligentBoard([FromBody] GetPeriodicBillBoardQuery request)
 	{
 		return await _mediator.Send(request);
 	}

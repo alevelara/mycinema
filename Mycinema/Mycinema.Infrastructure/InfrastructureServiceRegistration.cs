@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Mycinema.Application.Contracts.Infrastructure;
 using Mycinema.Application.Contracts.Repositories;
 using Mycinema.Application.Models;
-using Mycinema.Infrastructure.Repositories;
 using Mycinema.Infrastructure.Repositories.Read;
 using Mycinema.Infrastructure.Services;
 using System.Data.Common;
@@ -15,19 +14,21 @@ namespace Mycinema.Infrastructure
     {
         public static IServiceCollection AddInfrastructureServices( this IServiceCollection services, IConfiguration configuration)
         {
-            string uri = configuration.GetSection("TmdbSettings.UrlBase").Value;
+            string uri = configuration.GetSection("TmdbSettings:UrlBase").Value;
+            services.Configure<TmdbSettings>(configuration.GetSection("TmdbSettings"));
             services.AddScoped<DbConnection>(provider =>
             {
                 return new SqlConnection(configuration.GetConnectionString("ConnectionString"));
             });
             services.AddScoped(typeof(IAsyncReadRepository<>), typeof(GenericReadRepository<>));
+            services.AddScoped<IMovieGenreReadRepository, MovieGenreReadRepository>();
+            services.AddScoped<IMovieReadRepository, MovieReadRepository>();
 
-            services.AddHttpClient("tmdb", http =>
+            services.AddHttpClient<IHttpClient, HttpClientFactory>("tmdb", http =>
             {
                 http.BaseAddress = new Uri(uri);
-            });            
-            
-            services.Configure<TmdbSettings>(conf => configuration.GetSection("TmdbSettings"));
+            });
+
             services.AddTransient<IHttpClient, HttpClientFactory>();
             services.AddTransient<IHttpClientService, HttpClientService>();
 
