@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace Mycinema.Application.Models.DTOs.Entities.TmdbAPI;
+﻿namespace Mycinema.Application.Models.DTOs.Entities.TmdbAPI;
 
 public class MovieRecommendation : Recommendation
 {

@@ -10,7 +10,6 @@ public class MappingProfile : Profile
     public MappingProfile()
     {
         CreateMapFromEntitiesToDto();
-        CreateMapFromQueriesToEntities();
         CreateMapFromExernalApiToDto();
     }
 
@@ -20,11 +19,6 @@ public class MappingProfile : Profile
         CreateMap<Session, SessionDto>();
         CreateMap<City, CityDto>();
         CreateMap<Room, RoomDto>();
-    }
-
-    private void CreateMapFromQueriesToEntities()
-    {
-
     }
 
     private void CreateMapFromExernalApiToDto()

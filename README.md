@@ -1,6 +1,7 @@
 
 # mycinema app
 Technical test for Appspace v1.0.0
+This app was developed using .NET 6 framework.
 
 ## Description
 A cultural organization wants to promote cinema and audiovisual
@@ -20,7 +21,7 @@ blockbuster genres (for big rooms) and minority genres (for small
 rooms) and returns a suggested movie for each screen. All the
 movies will be different from one week to the next one.
 
-## Architecture
+## Patter Design
 I've tried to follow next patterns to develop the technical test.
 
  - Clean architecture & DDD
@@ -34,3 +35,4 @@ I've tried to follow next patterns to develop the technical test.
 - Unit & Integration Testing
 	- In order to test the implemented feature in app, I've written some unit tests using **xUnit, Fixture and Moq** nuget packages
 	- In order to test the integration between API and database, I've written some integration tests using **xUnit** nuget packages
+
