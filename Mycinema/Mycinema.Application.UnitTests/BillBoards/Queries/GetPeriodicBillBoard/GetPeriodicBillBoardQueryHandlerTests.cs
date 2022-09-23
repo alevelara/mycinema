@@ -19,6 +19,7 @@ public class GetPeriodicBillBoardQueryHandlerTests
     private Mock<IMovieReadRepository> _movieRepository;
     private Mock<ILogger<GetPeriodicBillBoardQueryHandler>> _logger;
     private IMapper _mapper;
+    private GetPeriodicBillBoardValidator _validator;
 
     public GetPeriodicBillBoardQueryHandlerTests()
     {
@@ -31,6 +32,7 @@ public class GetPeriodicBillBoardQueryHandlerTests
         });
 
         _mapper = mapperConfig.CreateMapper();
+        _validator = new GetPeriodicBillBoardValidator();
     }
 
     [Fact]
@@ -47,7 +49,7 @@ public class GetPeriodicBillBoardQueryHandlerTests
 
         _httpService.Setup(c => c.DiscoverMovies(It.IsAny<DateTime>(), It.IsAny<DateTime>())).Returns(movieResults);
         _httpService.Setup(c => c.DiscoverTvShows(It.IsAny<DateTime>(), It.IsAny<DateTime>())).Returns(tvShowResults);
-
+        
         var getPeriodicBillBoardQueryHandler = new GetPeriodicBillBoardQueryHandler(_httpService.Object, _movieRepository.Object, _logger.Object, _mapper);
         var billboard = await getPeriodicBillBoardQueryHandler.Handle(request, CancellationToken.None);
 
@@ -55,6 +57,7 @@ public class GetPeriodicBillBoardQueryHandlerTests
         Assert.NotNull(billboard.TvShows);
         Assert.True(billboard.TvShows.Count == request.NumberOfScreensForSmallRooms);
         Assert.True(billboard.Movies.Count == request.NumberOfScreensForBigRooms);
+        Assert.True(_validator.Validate(request).IsValid);
     }
 
     [Fact]
@@ -85,6 +88,70 @@ public class GetPeriodicBillBoardQueryHandlerTests
         Assert.Equal(billboard.Movies[0].Tittle, similarMoviesRecommendations[0].Tittle);
     }
 
+    [Fact]
+    public void GivenInValidNumberOfScreenForSmallRooms_WhenGetPeriodicBillBoardQueryHandler_ThrowValidationException()
+    {
+        var request = new GetPeriodicBillBoardQuery(numberOfScreensForBigRooms: 1,
+            numberOfScreensForSmallRooms: -1,
+            startDateTime: DateTime.Now.AddDays(-7),
+            endDateTime: DateTime.Now,
+            haveSimilarMovies: true);
+        
+        Assert.False(_validator.Validate(request).IsValid);
+    }
+
+    [Fact]
+    public void GivenInValidNumberOfScreenForBigRooms_WhenGetPeriodicBillBoardQueryHandler_ThrowValidationException()
+    {
+        var request = new GetPeriodicBillBoardQuery(numberOfScreensForBigRooms: -1,
+            numberOfScreensForSmallRooms: 1,
+            startDateTime: DateTime.Now.AddDays(-7),
+            endDateTime: DateTime.Now,
+            haveSimilarMovies: true);
+
+        Assert.False(_validator.Validate(request).IsValid);
+    }
+
+    [Fact]
+    public void GivenInValidStartDatetime_WhenGetPeriodicBillBoardQueryHandler_ThrowValidationException()
+    {
+        var request = new GetPeriodicBillBoardQuery(numberOfScreensForBigRooms: 1,
+            numberOfScreensForSmallRooms: 1,
+            startDateTime: DateTime.MinValue,
+            endDateTime: DateTime.Now,
+            haveSimilarMovies: true);
+
+        Assert.False(_validator.Validate(request).IsValid);
+    }
+
+    [Fact]
+    public void GivenInValidEndDatetime_WhenGetPeriodicBillBoardQueryHandler_ThrowValidationException()
+    {
+        var request = new GetPeriodicBillBoardQuery(numberOfScreensForBigRooms: -1,
+            numberOfScreensForSmallRooms: 1,
+            startDateTime: DateTime.Now.AddDays(-7),
+            endDateTime: DateTime.MaxValue,
+            haveSimilarMovies: true);
+
+        Assert.False(_validator.Validate(request).IsValid);
+    }
+
+    [Fact]
+    public void GivenInValidMultipleParams_WhenGetPeriodicBillBoardQueryHandler_ThrowValidationException()
+    {
+        var request = new GetPeriodicBillBoardQuery(numberOfScreensForBigRooms: -1,
+            numberOfScreensForSmallRooms: -1,
+            startDateTime: DateTime.MinValue,
+            endDateTime: DateTime.MaxValue,
+            haveSimilarMovies: true);
+
+        var validation = _validator.Validate(request);
+
+        Assert.False(validation.IsValid);
+        Assert.True(validation.Errors.Count == 5);
+    }
+
+    #region private methods
     private Task<PagedDto<TmdbMovieDto>> GetResultOfDiscoverMovies()
     {
         var fixture = new Fixture();
@@ -133,4 +200,5 @@ public class GetPeriodicBillBoardQueryHandlerTests
         };
         return Task.FromResult<List<Movie>>(movies);
     }
+    #endregion
 }
