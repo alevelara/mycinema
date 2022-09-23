@@ -18,12 +18,13 @@ public class BillBoardController
 		_mediator = mediator;
 	}
 
-	[HttpPost(BillBoardRoutes.GetIntelligentBoard)]
+	[HttpGet(BillBoardRoutes.GetIntelligentBoard)]
     [ProducesResponseType((int)HttpStatusCode.OK)]
     [ProducesResponseType((int)HttpStatusCode.BadRequest)]
     [ProducesResponseType((int)HttpStatusCode.NotFound)]
-    public async Task<ActionResult<BillBoard>> GetIntelligentBoard([FromBody] GetPeriodicBillBoardQuery request)
+    public async Task<ActionResult<BillBoard>> GetIntelligentBoard([FromQuery] int numberOfScreensForBigRooms, [FromQuery] int numberOfScreensForSmallRooms, [FromQuery] DateTime startDateTime, [FromQuery] DateTime endDateTime, [FromQuery] bool haveSimilarMovies)
 	{
+		var request = new GetPeriodicBillBoardQuery(numberOfScreensForBigRooms, numberOfScreensForSmallRooms, startDateTime, endDateTime, haveSimilarMovies);
 		return await _mediator.Send(request);
 	}
 }

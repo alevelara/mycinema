@@ -41,7 +41,7 @@ public class HttpClientService : IHttpClientService
 
     public async Task<PagedDto<TmdbTvShowDto>> DiscoverTvShows(DateTime startDateTime, DateTime endDateTime)
     {
-        var request = $"{_tmdbSettings.UrlBase}{TmdbEndpoints.discoverTvShow}?api_key={_tmdbSettings.ApiKey}&primary_release_date.gte={startDateTime.ToString("yyyy-MM-dd")}&primary_release_date.lte={endDateTime.ToString("yyyy-MM-dd")}";
+        var request = $"{_tmdbSettings.UrlBase}{TmdbEndpoints.discoverTvShow}?api_key={_tmdbSettings.ApiKey}&first_air_date.gte={startDateTime.ToString("yyyy-MM-dd")}&first_air_date.lte={endDateTime.ToString("yyyy-MM-dd")}";
         try
         {
             var apiResponse = await _httpClientFactory.GetAsync(request, CancellationToken.None);

@@ -1,5 +1,8 @@
-﻿namespace Mycinema.Application.Models.DTOs.Entities.TmdbAPI;
+﻿using Newtonsoft.Json;
 
+namespace Mycinema.Application.Models.DTOs.Entities.TmdbAPI;
+
+[JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
 public class BillBoard
 {
     public List<MovieRecommendation> Movies { get; private set; }

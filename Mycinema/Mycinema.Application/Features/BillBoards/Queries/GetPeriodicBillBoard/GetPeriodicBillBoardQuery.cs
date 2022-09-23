@@ -18,5 +18,5 @@ public class GetPeriodicBillBoardQuery : IRequest<BillBoard>
         StartDateTime = startDateTime;
         EndDateTime = endDateTime;
         HaveSimilarMovies = haveSimilarMovies;
-    }
+    }   
 }
