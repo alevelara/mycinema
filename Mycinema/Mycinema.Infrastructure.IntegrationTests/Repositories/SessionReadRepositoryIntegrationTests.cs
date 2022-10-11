@@ -23,28 +23,28 @@ namespace Mycinema.Infrastructure.IntegrationTests.Repositories
         }
 
         [Fact]
-        public async Task GivenAnExistingSession_WhenCallGetByIdMethod_ThenReturnOneSession()
+        public async Task SessionReadRepository_ShouldReturnSingleSession()
         {
             var session = await _sessionRepository.GetByIdAsync(1);
             Assert.NotNull(session);
         }
 
         [Fact]
-        public async Task GivenAnInvalidSession_WhenCallGetByIdMethod_ThenReturnNull()
+        public async Task SessionReadRepository_ShouldReturnNull()
         {
             var session = await _sessionRepository.GetByIdAsync(-1);
             Assert.Null(session);
         }
 
         [Fact]
-        public async Task GivenExistingSessions_WhenGetAllAsync_ThenReturnAListOfSessions()
+        public async Task SessionReadRepository_ShouldReturnListOfSessions()
         {
             var sessions = await _sessionRepository.GetAllAsync();
             Assert.IsType<List<Session>>(sessions);
         }
 
         [Fact]
-        public async Task GivenExistingSessions_WhenGetAllAsync_ThenReturnFullyList()
+        public async Task SessionReadRepository_ShouldReturnNotEmptyListOfSessions()
         {
             var sessions = await _sessionRepository.GetAllAsync();
             Assert.True(sessions.Count >= 1);

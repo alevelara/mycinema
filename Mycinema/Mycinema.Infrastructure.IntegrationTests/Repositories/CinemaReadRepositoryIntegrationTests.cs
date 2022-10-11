@@ -23,28 +23,28 @@ namespace Mycinema.Infrastructure.IntegrationTests.Repositories
         }
 
         [Fact]
-        public async Task GivenAnExistingCinema_WhenCallGetByIdMethod_ThenReturnOneCinema()
+        public async Task CinemaReadRepository_ShouldReturnSingleCinema()
         {
             var cinema = await _cinemaRepository.GetByIdAsync(2);
             Assert.NotNull(cinema);
         }
 
         [Fact]
-        public async Task GivenAnInvalidCinema_WhenCallGetByIdMethod_ThenReturnNull()
+        public async Task CinemaReadRepository_ShouldReturnNull()
         {
             var cinema = await _cinemaRepository.GetByIdAsync(-1);
             Assert.Null(cinema);
         }
 
         [Fact]
-        public async Task GivenExistingCinemas_WhenGetAllAsync_ThenReturnAListOfCinemas()
+        public async Task CinemaReadRepository_ShouldReturnListOfCinemas()
         {
             var cinemas = await _cinemaRepository.GetAllAsync();
             Assert.IsType<List<Cinema>>(cinemas);
         }
 
         [Fact]
-        public async Task GivenExistingCinemas_WhenGetAllAsync_ThenReturnFullyList()
+        public async Task CinemaReadRepository_ShouldReturnNotEmptyListOfCinemas()
         {
             var cinemas = await _cinemaRepository.GetAllAsync();
             Assert.True(cinemas.Count >= 1);

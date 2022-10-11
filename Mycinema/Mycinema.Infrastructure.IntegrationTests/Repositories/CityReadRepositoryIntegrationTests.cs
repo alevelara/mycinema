@@ -1,13 +1,11 @@
-﻿using Mycinema.Application.Contracts.Repositories;
-using Mycinema.Domain.Common;
-using Mycinema.Domain.Entities;
+﻿using Mycinema.Domain.Entities;
 using Mycinema.Infrastructure.Repositories.Read;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using Xunit;
 
-namespace Mycinema.Infrastructure.IntegrationTests.Repositories
+namespace MyCity.Infrastructure.IntegrationTests.Repositories
 {
     public class CityReadRepositoryIntegrationTests
     {
@@ -23,28 +21,28 @@ namespace Mycinema.Infrastructure.IntegrationTests.Repositories
         }
 
         [Fact]
-        public async Task GivenAnExistingCity_WhenCallGetByIdMethod_ThenReturnOneCity()
+        public async Task CityReadRepository_ShouldReturnSingleCity()
         {
             var city = await _cityRepository.GetByIdAsync(1);
             Assert.NotNull(city);
         }
 
         [Fact]
-        public async Task GivenAnInvalidCity_WhenCallGetByIdMethod_ThenReturnNull()
+        public async Task CityReadRepository_ShouldReturnNull()
         {
             var city = await _cityRepository.GetByIdAsync(-1);
             Assert.Null(city);
         }
 
         [Fact]
-        public async Task GivenExistingCitys_WhenGetAllAsync_ThenReturnAListOfCitys()
+        public async Task CityReadRepository_ShouldReturnListOfCities()
         {
             var cities = await _cityRepository.GetAllAsync();
             Assert.IsType<List<City>>(cities);
         }
 
         [Fact]
-        public async Task GivenExistingCitys_WhenGetAllAsync_ThenReturnFullyList()
+        public async Task CityReadRepository_ShouldReturnNotEmptyListOfCities()
         {
             var cities = await _cityRepository.GetAllAsync();
             Assert.True(cities.Count >= 1);

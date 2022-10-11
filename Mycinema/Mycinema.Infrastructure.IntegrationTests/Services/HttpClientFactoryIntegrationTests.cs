@@ -21,7 +21,7 @@ public class HttpClientFactoryIntegrationTests
     }
 
     [Fact]
-    public async Task GivenTheDiscoverEndpoint_WhenCallGetAsync_ThenReturnRecommendations()
+    public async Task HttpClientFactory_ShouldGetDiscoverMoviesFromAPI()
     {
         var httpClientFactory = new HttpClientFactory(_httpClientFactory.Object);
         var requestParam = uri + "/discover/movie?api_key=f70a1748885aaae8053003cca36baaca";

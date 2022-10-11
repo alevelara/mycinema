@@ -29,7 +29,7 @@ public class HttpClientServiceIntegrationTests
     }
 
     [Fact]
-    public async Task GivenValidParams_WhenDiscoverMoviesFromAPI_ThenReturnMovies()
+    public async Task HttpClientService_ShouldDiscoverMoviesByDate()
     {
         var service = new HttpClientService(_settings, _httpClientFactory);
         var startTime = DateTime.Now;
@@ -40,7 +40,7 @@ public class HttpClientServiceIntegrationTests
     }
 
     [Fact]
-    public async Task GivenValidParams_WhenDiscoverTvShowsFromAPI_ThenReturnTvShows()
+    public async Task HttpClientService_ShouldDiscoverTvShowsByDate()
     {
         var service = new HttpClientService(_settings, _httpClientFactory);
         var startTime = DateTime.Now;

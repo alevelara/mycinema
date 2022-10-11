@@ -36,7 +36,7 @@ public class GetPeriodicBillBoardQueryHandlerTests
     }
 
     [Fact]
-    public async Task GivenValidParametersWithOutSimilarMovies_WhenGetPeriodicBillBoardQueryHandler_ReturnIntelligentBillBoard()
+    public async Task GetPeriodicBillBoardQueryHandler_ShouldReturnIntelligentBillboardWithoutRecommendations()       
     {
         var request = new GetPeriodicBillBoardQuery(numberOfScreensForBigRooms: 1,
             numberOfScreensForSmallRooms: 1,
@@ -61,7 +61,7 @@ public class GetPeriodicBillBoardQueryHandlerTests
     }
 
     [Fact]
-    public async Task GivenValidParametersHavingSimilarMovies_WhenGetPeriodicBillBoardQueryHandler_ReturnIntelligentBillBoard()
+    public async Task GetPeriodicBillBoardQueryHandler_ShouldReturnIntelligentBillboardWithRecommendations()        
     {
         var request = new GetPeriodicBillBoardQuery(numberOfScreensForBigRooms: 1,
             numberOfScreensForSmallRooms: 1,
@@ -89,7 +89,7 @@ public class GetPeriodicBillBoardQueryHandlerTests
     }
 
     [Fact]
-    public void GivenInValidNumberOfScreenForSmallRooms_WhenGetPeriodicBillBoardQueryHandler_ThrowValidationException()
+    public void GetPeriodicBillBoardQueryValidator_ShouldReturnInvalidScreenForSmallRoomsParameter()        
     {
         var request = new GetPeriodicBillBoardQuery(numberOfScreensForBigRooms: 1,
             numberOfScreensForSmallRooms: -1,
@@ -101,7 +101,7 @@ public class GetPeriodicBillBoardQueryHandlerTests
     }
 
     [Fact]
-    public void GivenInValidNumberOfScreenForBigRooms_WhenGetPeriodicBillBoardQueryHandler_ThrowValidationException()
+    public void GetPeriodicBillBoardQueryValidator_ShouldReturnInvalidScreenForBigRoomsParameter()
     {
         var request = new GetPeriodicBillBoardQuery(numberOfScreensForBigRooms: -1,
             numberOfScreensForSmallRooms: 1,
@@ -113,7 +113,7 @@ public class GetPeriodicBillBoardQueryHandlerTests
     }
 
     [Fact]
-    public void GivenInValidStartDatetime_WhenGetPeriodicBillBoardQueryHandler_ThrowValidationException()
+    public void GetPeriodicBillBoardQueryValidator_ShouldReturnInvalidStartDatetimeParameter()        
     {
         var request = new GetPeriodicBillBoardQuery(numberOfScreensForBigRooms: 1,
             numberOfScreensForSmallRooms: 1,
@@ -125,7 +125,7 @@ public class GetPeriodicBillBoardQueryHandlerTests
     }
 
     [Fact]
-    public void GivenInValidEndDatetime_WhenGetPeriodicBillBoardQueryHandler_ThrowValidationException()
+    public void GetPeriodicBillBoardQueryValidator_ShouldReturnInvalidEndDatetimeParameter()     
     {
         var request = new GetPeriodicBillBoardQuery(numberOfScreensForBigRooms: -1,
             numberOfScreensForSmallRooms: 1,
@@ -137,7 +137,7 @@ public class GetPeriodicBillBoardQueryHandlerTests
     }
 
     [Fact]
-    public void GivenInValidMultipleParams_WhenGetPeriodicBillBoardQueryHandler_ThrowValidationException()
+    public void GetPeriodicBillBoardQueryValidator_ShouldReturnInvalidMultipleParameter()        
     {
         var request = new GetPeriodicBillBoardQuery(numberOfScreensForBigRooms: -1,
             numberOfScreensForSmallRooms: -1,

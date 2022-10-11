@@ -23,28 +23,28 @@ namespace Mycinema.Infrastructure.IntegrationTests.Repositories
         }
 
         [Fact]
-        public async Task GivenAnExistingMovie_WhenCallGetByIdMethod_ThenReturnOneMovie()
+        public async Task MovieReadRepository_ShouldReturnSingleMovie()
         {
             var movie = await _movieRepository.GetByIdAsync(1);
             Assert.NotNull(movie);
         }
 
         [Fact]
-        public async Task GivenAnInvalidMovie_WhenCallGetByIdMethod_ThenReturnNull()
+        public async Task MovieReadRepository_ShouldReturnNull()
         {
             var movie = await _movieRepository.GetByIdAsync(-1);
             Assert.Null(movie);
         }
 
         [Fact]
-        public async Task GivenExistingMovies_WhenGetAllAsync_ThenReturnAListOfMovies()
+        public async Task MovieReadRepository_ShouldReturnListOfMovies()
         {
             var movies = await _movieRepository.GetAllAsync();
             Assert.IsType<List<Movie>>(movies);
         }
 
         [Fact]
-        public async Task GivenExistingMovies_WhenGetAllAsync_ThenReturnFullyList()
+        public async Task MovieReadRepository_ShouldReturnNotEmptyListOfMovies()
         {
             var movies = await _movieRepository.GetAllAsync();
             Assert.True(movies.Count >= 1);

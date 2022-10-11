@@ -21,70 +21,70 @@ namespace MyMovieGenre.Infrastructure.IntegrationTests.Repositories
         }
 
         [Fact]
-        public async Task GivenAnExistingMovieGenre_WhenCallGetByMovieIdMethod_ThenReturnFullyList()
+        public async Task MovieGenreReadRepository_GetByMovieIdAsync_ShouldReturnListOfMovieGenre()
         {
             var movieGenres = await _movieGenreRepository.GetByMovieIdAsync(2);
             Assert.True(movieGenres.Count >= 1);
         }
 
         [Fact]
-        public async Task GivenAnInvalidMovieGenre_WhenCallGetByMovieIdIdMethod_ThenReturnNull()
+        public async Task MovieGenreReadRepository_GetByMovieIdAsync_ShouldReturnEmptyListOfMovieGenre()
         {
             var movieGenre = await _movieGenreRepository.GetByMovieIdAsync(-1);
             Assert.True(movieGenre.Count == 0);
         }
 
         [Fact]
-        public async Task GivenAnExistingMovieGenre_WhenCallGetByGenreIddMethod_ThenReturnFullyList()
+        public async Task MovieGenreReadRepository_GetByGenreIdAsync_ShouldReturnListOfMovieGenre()
         {
             var movieGenres = await _movieGenreRepository.GetByGenreIdAsync(3);
             Assert.True(movieGenres.Count >= 1);
         }
 
         [Fact]
-        public async Task GivenAnInvalidMovieGenre_WhenCallGetByGenreIdIdMethod_ThenReturnNull()
+        public async Task MovieGenreReadRepository_GetByGenreIdAsync_ShouldReturnEmptyListOfMovieGenre()
         {
             var movieGenre = await _movieGenreRepository.GetByGenreIdAsync(-1);
             Assert.True(movieGenre.Count == 0);
         }
 
         [Fact]
-        public async Task GivenAValidMovieGenre_WhenCallGetByGenreIdAndMovieIdAsyncMethod_ThenReturnAGenreMovie()
+        public async Task MovieGenreReadRepository_GetByGenreIdAndMovieIdAsync_ShouldReturnAGenreMovie()
         {
             var movieGenre = await _movieGenreRepository.GetByGenreIdAndMovieIdAsync(3, 1);
             Assert.NotNull(movieGenre);
         }
 
         [Fact]
-        public async Task GivenAnInValidMovie_WhenCallGetByGenreIdAndMovieIdAsyncMethod_ThenReturnNull()
+        public async Task MovieGenreReadRepository_GetByGenreIdAndMovieIdAsync_ShouldReturnNullGenreMovieWithInvalidMovieId()
         {
             var movieGenre = await _movieGenreRepository.GetByGenreIdAndMovieIdAsync(3, -1);
             Assert.Null(movieGenre);
         }
 
         [Fact]
-        public async Task GivenAnInValidGenre_WhenCallGetByGenreIdAndMovieIdAsyncMethod_ThenReturnNull()
+        public async Task MovieGenreReadRepository_GetByGenreIdAndMovieIdAsync_ShouldReturnNullGenreMovieWithInvalidGenreId()
         {
             var movieGenre = await _movieGenreRepository.GetByGenreIdAndMovieIdAsync(-1, 1);
             Assert.Null(movieGenre);
         }
 
         [Fact]
-        public async Task GivenAnInValidGenreAndMovie_WhenCallGetByGenreIdAndMovieIdAsyncMethod_ThenReturnNull()
+        public async Task MovieGenreReadRepository_GetByGenreIdAndMovieIdAsync_ShouldReturnNullGenreMovieWithInvalidParameters()
         {
             var movieGenre = await _movieGenreRepository.GetByGenreIdAndMovieIdAsync(-1, -1);
             Assert.Null(movieGenre);
         }
 
         [Fact]
-        public async Task GivenExistingMovieGenres_WhenGetAllAsync_ThenReturnAListOfMovieGenres()
+        public async Task MovieGenreReadRepository_GetAllAsync_ShouldReturnListOfMovieGenre()
         {
             var movieGenres = await _movieGenreRepository.GetAllAsync();
             Assert.IsType<List<MovieGenre>>(movieGenres);
         }
 
         [Fact]
-        public async Task GivenExistingMovieGenres_WhenGetAllAsync_ThenReturnFullyList()
+        public async Task MovieGenreReadRepository_GetAllAsync_ShouldReturnNotEmptyListOfMovieGenre()
         {
             var movieGenres = await _movieGenreRepository.GetAllAsync();
             Assert.True(movieGenres.Count >= 1);

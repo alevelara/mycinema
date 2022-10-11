@@ -18,8 +18,4 @@
     <ProjectReference Include="..\Mycinema.Application\Mycinema.Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Repositories\Write\" />
-  </ItemGroup>
-
 </Project>

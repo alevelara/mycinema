@@ -1,6 +1,4 @@
-﻿using Mycinema.Application.Contracts.Repositories;
-using Mycinema.Domain.Common;
-using Mycinema.Domain.Entities;
+﻿using Mycinema.Domain.Entities;
 using Mycinema.Infrastructure.Repositories.Read;
 using System.Data;
 using System.Data.Common;
@@ -23,28 +21,28 @@ namespace Mycinema.Infrastructure.IntegrationTests.Repositories
         }
 
         [Fact]
-        public async Task GivenAnExistingGenre_WhenCallGetByIdMethod_ThenReturnOneGenre()
+        public async Task GenreReadRepository_ShouldReturnSingleGenre()
         {
             var genre = await _genreRepository.GetByIdAsync(1);
             Assert.NotNull(genre);
         }
 
         [Fact]
-        public async Task GivenAnInvalidGenre_WhenCallGetByIdMethod_ThenReturnNull()
+        public async Task GenreReadRepository_ShouldReturnNull()
         {
             var genre = await _genreRepository.GetByIdAsync(-1);
             Assert.Null(genre);
         }
 
         [Fact]
-        public async Task GivenExistingGenres_WhenGetAllAsync_ThenReturnAListOfGenres()
+        public async Task GenreReadRepository_ShouldReturnListOfGenres()
         {
             var genres = await _genreRepository.GetAllAsync();
             Assert.IsType<List<Genre>>(genres);
         }
 
         [Fact]
-        public async Task GivenExistingGenres_WhenGetAllAsync_ThenReturnFullyList()
+        public async Task GenreReadRepository_ShouldReturnNotEmptyListOfGenres()
         {
             var genres = await _genreRepository.GetAllAsync();
             Assert.True(genres.Count >= 1);

@@ -19,11 +19,11 @@ public class MovieReadRepository : GenericReadRepository<Movie>, IMovieReadRepos
 
     public async Task<List<Movie>> GetMostSuccesfulMoviesByDate(DateTime startdatetime, DateTime endDatetime)
     {
-        var sql = $"Select m.*, SUM(s.SeatsSold) sumofSeatsSold from Movie m join Session s on s.MovieId = m.Id where ReleaseDate between '{startdatetime.ToString("yyyy-MM-dd")}' and '{endDatetime.ToString("yyyy-MM-dd")}' group by m.id, m.OriginalTitle, m.ReleaseDate, m.OriginalLanguage, m.Adult order by sumofSeatsSold desc";
+        var sql = $"Select m.*, SUM(s.SeatsSold) sumofSeatsSold from Movie m join Session s on s.MovieId = m.Id where ReleaseDate between @StartDateTime and @EndDateTime group by m.id, m.OriginalTitle, m.ReleaseDate, m.OriginalLanguage, m.Adult order by sumofSeatsSold desc";
         using (var connection = new SqlConnection(_connectionString))
         {
             connection.Open();
-            var result = await connection.QueryAsync<Movie>(sql);
+            var result = await connection.QueryAsync<Movie>(sql, new {StartDateTime = startdatetime.ToString("yyyy-MM-dd"), EndDateTime = endDatetime.ToString("yyyy-MM-dd") });
             return result.ToList();
         }
     }

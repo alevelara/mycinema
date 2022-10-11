@@ -21,28 +21,28 @@ namespace Mycinema.Infrastructure.IntegrationTests.Repositories
         }
 
         [Fact]
-        public async Task GivenAnExistingRoom_WhenCallGetByIdMethod_ThenReturnOneRoom()
+        public async Task RoomReadRepository_ShouldReturnSingleRoom()
         {
             var room = await _roomRepository.GetByIdAsync(25);
             Assert.NotNull(room);
         }
 
         [Fact]
-        public async Task GivenAnInvalidRoom_WhenCallGetByIdMethod_ThenReturnNull()
+        public async Task RoomReadRepository_ShouldReturnNull()
         {
             var room = await _roomRepository.GetByIdAsync(-1);
             Assert.Null(room);
         }
 
         [Fact]
-        public async Task GivenExistingRooms_WhenGetAllAsync_ThenReturnAListOfRooms()
+        public async Task RoomReadRepository_ShouldReturnListOfRooms()
         {
             var rooms = await _roomRepository.GetAllAsync();
             Assert.IsType<List<Room>>(rooms);
         }
 
         [Fact]
-        public async Task GivenExistingRooms_WhenGetAllAsync_ThenReturnFullyList()
+        public async Task RoomReadRepository_ShouldReturnNotEmptyListOfRooms()
         {
             var rooms = await _roomRepository.GetAllAsync();
             Assert.True(rooms.Count >= 1);
