@@ -1,4 +1,4 @@
-﻿namespace Mycinema.Application.Models.DTOs.Entities.TmdbAPI;
+﻿namespace Mycinema.Application.Models.Entities;
 
 public class MovieRecommendation : Recommendation
 {

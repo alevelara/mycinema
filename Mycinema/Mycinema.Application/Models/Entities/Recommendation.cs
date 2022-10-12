@@ -1,6 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using Mycinema.Application.Utils;
+using Newtonsoft.Json;
 
-namespace Mycinema.Application.Models.DTOs.Entities.TmdbAPI;
+namespace Mycinema.Application.Models.Entities;
 
 public class Recommendation
 {
@@ -14,6 +15,7 @@ public class Recommendation
     public string WebSite { get; private set; }
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public string Keywords { get; private set; }
+    public Week ReleaseWeek { get; private set; }
 
     public Recommendation(string tittle, string overview, List<int> genres, string language, DateTime releaseDate, string webSite, string keywords)
     {
@@ -24,6 +26,7 @@ public class Recommendation
         ReleaseDate = releaseDate;
         WebSite = webSite;
         Keywords = keywords;
+        ReleaseWeek = DateUtils.CalculateWeekFromDate(releaseDate);
     }
 
     public Recommendation()

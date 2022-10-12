@@ -1,4 +1,4 @@
-﻿namespace Mycinema.Application.Models.DTOs.Entities.TmdbAPI;
+﻿namespace Mycinema.Application.Models.Entities;
 
 public class BillBoardConfigurator
 {
@@ -6,18 +6,18 @@ public class BillBoardConfigurator
 
     public BillBoardConfigurator(BillBoard billboard)
     {
-        this.Billboard = billboard;
+        Billboard = billboard;
     }
 
     public void AddLimitNumberOfMoviesRecommendations(int numberOfMovies, List<MovieRecommendation> movieRecommendations)
     {
         if (movieRecommendations.Count > 0)
-            this.Billboard.Movies.AddRange(movieRecommendations.Take(numberOfMovies));
+            Billboard.Movies.AddRange(movieRecommendations.Take(numberOfMovies));
     }
 
     public void AddLimitNumberOfTvShowsRecommendations(int numberOfTvShows, List<TvShowRecommendation> tvShowRecommendations)
     {
         if (tvShowRecommendations.Count > 0)
-            this.Billboard.TvShows.AddRange(tvShowRecommendations.Take(numberOfTvShows));
+            Billboard.TvShows.AddRange(tvShowRecommendations.Take(numberOfTvShows));
     }
 }

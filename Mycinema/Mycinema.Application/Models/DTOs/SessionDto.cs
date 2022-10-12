@@ -1,4 +1,4 @@
-﻿namespace Mycinema.Application.Models.DTOs.Entities;
+﻿namespace Mycinema.Application.Models.DTOs;
 
 public class SessionDto
 {

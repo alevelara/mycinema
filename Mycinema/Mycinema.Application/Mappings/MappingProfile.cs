@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
-using Mycinema.Application.Models.DTOs.Entities;
+using Mycinema.Application.Models.DTOs;
 using Mycinema.Application.Models.DTOs.Entities.TmdbAPI;
+using Mycinema.Application.Models.Entities;
 using Mycinema.Domain.Entities;
 
 namespace Mycinema.Application.Mappings;

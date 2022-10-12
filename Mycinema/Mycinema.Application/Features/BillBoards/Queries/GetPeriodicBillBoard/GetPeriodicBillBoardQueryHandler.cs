@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Mycinema.Application.Contracts.Infrastructure;
 using Mycinema.Application.Contracts.Repositories;
 using Mycinema.Application.Models.DTOs.Entities.TmdbAPI;
+using Mycinema.Application.Models.Entities;
 using Mycinema.Domain.Entities;
 
 namespace Mycinema.Application.Features.BillBoards.Queries.GetPeriodicBillBoard;
@@ -26,7 +27,7 @@ public class GetPeriodicBillBoardQueryHandler : IRequestHandler<GetPeriodicBillB
     public async Task<BillBoard> Handle(GetPeriodicBillBoardQuery request, CancellationToken cancellationToken)
     {
         var billBoard = new BillBoard();
-        var billboardConfigurator = new BillBoardConfigurator(billBoard);        
+        var billboardConfigurator = new BillBoardConfigurator(billBoard);
 
         List<TvShowRecommendation> tvShowRecommendations = await GetTVShowRecomendations(request.StartDateTime, request.EndDateTime);
         billboardConfigurator.AddLimitNumberOfTvShowsRecommendations(request.NumberOfScreensForSmallRooms, tvShowRecommendations);

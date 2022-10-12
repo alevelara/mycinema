@@ -8,6 +8,7 @@ using Mycinema.Application.Features.BillBoards.Queries.GetPeriodicBillBoard;
 using Mycinema.Application.Mappings;
 using Mycinema.Application.Models.DTOs;
 using Mycinema.Application.Models.DTOs.Entities.TmdbAPI;
+using Mycinema.Application.Models.Entities;
 using Mycinema.Domain.Entities;
 using Xunit;
 

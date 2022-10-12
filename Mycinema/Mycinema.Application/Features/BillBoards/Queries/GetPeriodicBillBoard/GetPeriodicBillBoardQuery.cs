@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using Mycinema.Application.Models.DTOs.Entities.TmdbAPI;
+using Mycinema.Application.Models.Entities;
 
 namespace Mycinema.Application.Features.BillBoards.Queries.GetPeriodicBillBoard;
 
