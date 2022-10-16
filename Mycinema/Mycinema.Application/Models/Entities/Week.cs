@@ -1,6 +1,6 @@
 ﻿namespace Mycinema.Application.Models.Entities;
 
-public class Week
+public class Week 
 {
     public DateTime StartDateTime { get; set; }
     public DateTime EndDateTime { get; set; }
@@ -16,4 +16,15 @@ public class Week
     public Week()
     {
     }
+    
+    public override bool Equals(Object obj)
+    {
+        if ((obj == null) || !this.GetType().Equals(obj.GetType()))
+        {
+            return false;
+        }
+        Week week = (Week)obj;
+        return StartDateTime.Equals(week.StartDateTime) && EndDateTime.Equals(week.EndDateTime) && NumberOfWeek.Equals(week.NumberOfWeek);
+    }
+
 }

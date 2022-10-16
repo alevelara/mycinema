@@ -28,13 +28,13 @@ public static class DateUtils
         return new Week(startDateOfWeek, endDateOfWeek, numberOfWeek);
     }
 
-    public static DateTime StartOfWeek(this DateTime date)
+    private static DateTime StartOfWeek(this DateTime date)
     {
         int diff = (7 + (date.DayOfWeek - DayOfWeek.Monday)) % 7;
         return date.AddDays(-1 * diff).Date;
     }
 
-    public static DateTime EndOfWeek(this DateTime date)
+    private static DateTime EndOfWeek(this DateTime date)
     {
         int diff = (7 - (date.DayOfWeek - DayOfWeek.Monday)) % 7;
         return date.AddDays(diff).Date;

@@ -26,27 +26,21 @@ public class GetPeriodicBillBoardQueryHandler : IRequestHandler<GetPeriodicBillB
 
     public async Task<BillBoard> Handle(GetPeriodicBillBoardQuery request, CancellationToken cancellationToken)
     {
-        var billBoard = new BillBoard();
-        var billboardConfigurator = new BillBoardConfigurator(billBoard);
-
-        List<TvShowRecommendation> tvShowRecommendations = await GetTVShowRecomendations(request.StartDateTime, request.EndDateTime);
-        billboardConfigurator.AddLimitNumberOfTvShowsRecommendations(request.NumberOfScreensForSmallRooms, tvShowRecommendations);
-
+        
+        List<TvShowRecommendation> tvShowRecommendations = await GetTVShowRecomendations(request.StartDateTime, request.EndDateTime);        
         List<MovieRecommendation> moviesRecommendations = await GetMoviesRecomendations(request.StartDateTime, request.EndDateTime);
 
-        if (!request.HaveSimilarMovies)
+        if (request.HaveSimilarMovies)
         {
-            billboardConfigurator.AddLimitNumberOfMoviesRecommendations(request.NumberOfScreensForBigRooms, moviesRecommendations);
-            return billBoard;
+            var similarMovies = await GetMostSuccesfulMoviesFromDb(request.StartDateTime, request.EndDateTime);
+            moviesRecommendations.AddRange(similarMovies);
         }
-
-        var similarMovies = await GetMostSuccesfulMoviesFromDb(request.StartDateTime, request.EndDateTime);
-        similarMovies.AddRange(moviesRecommendations);
-        billboardConfigurator.AddLimitNumberOfMoviesRecommendations(request.NumberOfScreensForBigRooms, similarMovies);
+       
+        var billBoardFactory = new BillBoardFactory(request.StartDateTime, request.EndDateTime, moviesRecommendations, tvShowRecommendations, request.NumberOfScreensForBigRooms, request.NumberOfScreensForSmallRooms);
 
         _logger.LogInformation("Billboard created succesfully");
 
-        return billBoard;
+        return billBoardFactory.CreateBillBoard();
     }
 
     private async Task<List<MovieRecommendation>> GetMoviesRecomendations(DateTime startDatetime, DateTime endDatetime)
