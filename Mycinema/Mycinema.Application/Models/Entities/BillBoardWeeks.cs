@@ -23,5 +23,14 @@ public class BillBoardWeeks
         EndDateTime = DateTime.Now.AddDays(7);
     }
 
-     
+    public void SetStartDateTime(DateTime dateTime)
+    {
+        StartDateTime = dateTime;
+    }
+
+    public void SetEndDateTime(DateTime dateTime)
+    {
+        EndDateTime = dateTime;
+    }
+
 }

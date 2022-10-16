@@ -39,11 +39,13 @@ public class BillBoardFactory
 
 	private BillBoardWeeks CreateBillBoardWeeks(Week week)
 	{
-        BillBoardWeeks weeks = new();        
+        BillBoardWeeks weeks = new();
 		weeks.Movies.AddRange(GetMoviesForWeeks(week));
         weeks.TvShows.AddRange(GetTvShowsForWeek(week));			
+		weeks.SetStartDateTime(week.StartDateTime);
+        weeks.SetEndDateTime(week.EndDateTime);
 
-		return weeks;
+        return weeks;
 	}
 
 	private int GetNumberOfWeeks()
@@ -56,11 +58,11 @@ public class BillBoardFactory
 
 	private List<MovieRecommendation> GetMoviesForWeeks(Week week)
 	{
-		return Movies.FindAll(c => week.Equals(c.ReleaseWeek)).Take(NumberOfScreensMovies).ToList(); 
+		return Movies.FindAll(c => c.ReleaseDate > week.StartDateTime && c.ReleaseDate <= week.EndDateTime && c.ReleaseWeek.NumberOfWeek == week.NumberOfWeek).Take(NumberOfScreensMovies).ToList(); 
 	}
 
     private List<TvShowRecommendation> GetTvShowsForWeek(Week week)
     {
-        return TvShows.FindAll(c => week.Equals(c.ReleaseWeek)).Take(NumberOfScreensTvShows).ToList();
+        return TvShows.FindAll(c => c.ReleaseDate > week.StartDateTime && c.ReleaseDate <= week.EndDateTime && c.ReleaseWeek.NumberOfWeek == week.NumberOfWeek).Take(NumberOfScreensTvShows).ToList();
     }
 }

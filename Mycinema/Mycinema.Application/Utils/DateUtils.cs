@@ -24,6 +24,9 @@ public static class DateUtils
         var numberOfWeek = GetNumberOfWeek(releaseDate);
         var startDateOfWeek = StartOfWeek(releaseDate);
         var endDateOfWeek = EndOfWeek(releaseDate);
+        
+        if (startDateOfWeek.Equals(endDateOfWeek))
+            endDateOfWeek.AddDays(7);
 
         return new Week(startDateOfWeek, endDateOfWeek, numberOfWeek);
     }
