@@ -10,13 +10,13 @@ public static class DateUtils
         var yearDifference = date.Year - initialYear;
         var dinfo = DateTimeFormatInfo.CurrentInfo;
         var weeksOfInitialYear = GetTotalNumberOfAYear(initialYear);
-        return dinfo.Calendar.GetWeekOfYear(date, CalendarWeekRule.FirstFullWeek, DayOfWeek.Monday) + (weeksOfInitialYear * yearDifference);
+        return dinfo.Calendar.GetWeekOfYear(date, CalendarWeekRule.FirstDay, DayOfWeek.Monday) + (weeksOfInitialYear * yearDifference);
     }
 
     public static int GetNumberOfWeek(DateTime date)
     {
         var dinfo = DateTimeFormatInfo.CurrentInfo;
-        return dinfo.Calendar.GetWeekOfYear(date, CalendarWeekRule.FirstFullWeek, DayOfWeek.Monday);
+        return dinfo.Calendar.GetWeekOfYear(date, CalendarWeekRule.FirstDay, DayOfWeek.Monday);
     }
 
     public static Week CalculateWeekFromDate(DateTime releaseDate)
@@ -26,7 +26,7 @@ public static class DateUtils
         var endDateOfWeek = EndOfWeek(releaseDate);
         
         if (startDateOfWeek.Equals(endDateOfWeek))
-            endDateOfWeek.AddDays(7);
+            endDateOfWeek = endDateOfWeek.AddDays(7);
 
         return new Week(startDateOfWeek, endDateOfWeek, numberOfWeek);
     }

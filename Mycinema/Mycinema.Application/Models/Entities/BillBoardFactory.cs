@@ -58,11 +58,11 @@ public class BillBoardFactory
 
 	private List<MovieRecommendation> GetMoviesForWeeks(Week week)
 	{
-		return Movies.FindAll(c => c.ReleaseDate > week.StartDateTime && c.ReleaseDate <= week.EndDateTime && c.ReleaseWeek.NumberOfWeek == week.NumberOfWeek).Take(NumberOfScreensMovies).ToList(); 
+		return Movies.FindAll(c => c.ReleaseDate > week.StartDateTime && c.ReleaseDate <= week.EndDateTime).Take(NumberOfScreensMovies).ToList(); 
 	}
 
     private List<TvShowRecommendation> GetTvShowsForWeek(Week week)
     {
-        return TvShows.FindAll(c => c.ReleaseDate > week.StartDateTime && c.ReleaseDate <= week.EndDateTime && c.ReleaseWeek.NumberOfWeek == week.NumberOfWeek).Take(NumberOfScreensTvShows).ToList();
+        return TvShows.FindAll(c => c.ReleaseDate > week.StartDateTime && c.ReleaseDate <= week.EndDateTime).Take(NumberOfScreensTvShows).ToList();
     }
 }
