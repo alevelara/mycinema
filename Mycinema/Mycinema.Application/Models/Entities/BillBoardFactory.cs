@@ -29,10 +29,26 @@ public class BillBoardFactory
 		BillBoard billboard = new();
 		for(int i = 0; i < NumberOfWeeks; i++)
 		{
-			var week = DateUtils.CalculateWeekFromDate(StartDateTime);
-			billboard.Weeks.Add(CreateBillBoardWeeks(week));
-			StartDateTime = StartDateTime.AddDays(7);
-		}
+			var week = new Week();
+			if (i == 0)
+			{
+                week = DateUtils.CalculateFirstWeekFromDate(StartDateTime);
+                billboard.Weeks.Add(CreateBillBoardWeeks(week));
+                StartDateTime = StartDateTime.AddDays(7);
+                continue;
+            }            
+
+            if (i == NumberOfWeeks - 1)
+			{
+                week = DateUtils.CalculateLastWeekFromDate(EndDateTime);
+                billboard.Weeks.Add(CreateBillBoardWeeks(week));
+				break;
+            }
+
+            week = DateUtils.CalculateWeekFromDate(StartDateTime);
+            billboard.Weeks.Add(CreateBillBoardWeeks(week));
+            StartDateTime = StartDateTime.AddDays(7);
+        }
 
 		return billboard;
 	}
@@ -53,7 +69,7 @@ public class BillBoardFactory
 		var startWeek = DateUtils.GetNumberOfWeekFromAYear(StartDateTime.Year, StartDateTime);
 		var endWeek = DateUtils.GetNumberOfWeekFromAYear(StartDateTime.Year, EndDateTime);
 
-		return endWeek - startWeek;
+		return endWeek - startWeek + 1;
 	}
 
 	private List<MovieRecommendation> GetMoviesForWeeks(Week week)

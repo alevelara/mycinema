@@ -20,4 +20,8 @@
     <ProjectReference Include="..\Mycinema.Domain\Mycinema.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\TvShowRecommendations\" />
+  </ItemGroup>
+
 </Project>
