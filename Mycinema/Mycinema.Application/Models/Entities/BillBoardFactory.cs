@@ -1,4 +1,5 @@
-﻿using Mycinema.Application.Utils;
+﻿using Mycinema.Application.Features.BillBoards.Queries.GetPeriodicBillBoard;
+using Mycinema.Application.Utils;
 using System.Globalization;
 
 namespace Mycinema.Application.Models.Entities;
@@ -13,15 +14,15 @@ public class BillBoardFactory
     private int NumberOfScreensTvShows { get; set; }
     private int NumberOfWeeks { get; set; }
 
-	public BillBoardFactory(DateTime startDateTime, DateTime endDateTime, List<MovieRecommendation> movies, List<TvShowRecommendation> tvShows, int numberOfScreensMovies, int numberOfScreensTvShows)
+	public BillBoardFactory(GetPeriodicBillBoardQuery request, List<MovieRecommendation> movies, List<TvShowRecommendation> tvShows)
 	{
-		StartDateTime = startDateTime;
-		EndDateTime = endDateTime;
+		StartDateTime = request.StartDateTime;
+		EndDateTime = request.EndDateTime;
 		Movies = movies;
 		TvShows = tvShows;
 		NumberOfWeeks = GetNumberOfWeeks();
-		NumberOfScreensMovies = numberOfScreensMovies;
-		NumberOfScreensTvShows = numberOfScreensTvShows;
+		NumberOfScreensMovies = request.NumberOfScreensForBigRooms;
+		NumberOfScreensTvShows = request.NumberOfScreensForSmallRooms;
     }
 
 	public BillBoard CreateBillBoard()

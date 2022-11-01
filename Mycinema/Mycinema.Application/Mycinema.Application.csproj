@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\TvShowRecommendations\" />
+    <Folder Include="Exceptions\ValidationErrors\TvShowRecommendations\" />
   </ItemGroup>
 
 </Project>

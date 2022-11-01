@@ -1,5 +1,6 @@
 ﻿using FluentValidation.Results;
 using Mycinema.Application.Contracts.Infrastructure;
+using Mycinema.Application.Exceptions;
 using Mycinema.Application.Exceptions.ValidationErrors.MoviesRecommendations;
 using Mycinema.Application.Models.DTOs;
 using Mycinema.Application.Models.DTOs.Entities.TmdbAPI;
@@ -10,6 +11,11 @@ namespace Mycinema.Application.Services.TvShowRecommendations;
 public class GetTVShowRecommendation : IGetTVShowRecommendation
 {
     private readonly IHttpClientService _httpService;
+
+    public GetTVShowRecommendation(IHttpClientService httpService)
+    {
+        _httpService = httpService;
+    }
 
     public async Task<PagedDto<TmdbTvShowDto>> GetTVShowRecomendations(DateTime startDatetime, DateTime endDatetime)
     {

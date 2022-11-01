@@ -9,6 +9,8 @@ using Mycinema.Application.Mappings;
 using Mycinema.Application.Models.DTOs;
 using Mycinema.Application.Models.DTOs.Entities.TmdbAPI;
 using Mycinema.Application.Models.Entities;
+using Mycinema.Application.Services.MovieRecommendations;
+using Mycinema.Application.Services.TvShowRecommendations;
 using Mycinema.Domain.Entities;
 using Xunit;
 
@@ -16,16 +18,16 @@ namespace Mycinema.Application.UnitTests.BillBoards.Queries.GetPeriodicBillBoard
 
 public class GetPeriodicBillBoardQueryHandlerTests
 {
-    private Mock<IHttpClientService> _httpService;
-    private Mock<IMovieReadRepository> _movieRepository;
+    private Mock<IGetMovieRecommendation> _getMovieRecommendation;
+    private Mock<IGetTVShowRecommendation> _getTvShowRecommendation;        
     private Mock<ILogger<GetPeriodicBillBoardQueryHandler>> _logger;
     private IMapper _mapper;
     private GetPeriodicBillBoardValidator _validator;
 
     public GetPeriodicBillBoardQueryHandlerTests()
     {
-        _httpService = new Mock<IHttpClientService>();
-        _movieRepository = new Mock<IMovieReadRepository>();
+        _getMovieRecommendation = new Mock<IGetMovieRecommendation>();
+        _getTvShowRecommendation = new Mock<IGetTVShowRecommendation>();
         _logger = new Mock<ILogger<GetPeriodicBillBoardQueryHandler>>();
         var mapperConfig = new MapperConfiguration(c =>
         {
@@ -48,10 +50,10 @@ public class GetPeriodicBillBoardQueryHandlerTests
         var movieResults = GetResultOfDiscoverMovies();
         var tvShowResults = GetResultOfDiscoverTvShows();
 
-        _httpService.Setup(c => c.DiscoverMovies(It.IsAny<DateTime>(), It.IsAny<DateTime>())).Returns(movieResults);
-        _httpService.Setup(c => c.DiscoverTvShows(It.IsAny<DateTime>(), It.IsAny<DateTime>())).Returns(tvShowResults);
+        _getMovieRecommendation.Setup(c => c.GetMovieRecommendations(It.IsAny<DateTime>(), It.IsAny<DateTime>())).Returns(movieResults);
+        _getTvShowRecommendation.Setup(c => c.GetTVShowRecomendations(It.IsAny<DateTime>(), It.IsAny<DateTime>())).Returns(tvShowResults);
         
-        var getPeriodicBillBoardQueryHandler = new GetPeriodicBillBoardQueryHandler(_httpService.Object, _movieRepository.Object, _logger.Object, _mapper);
+        var getPeriodicBillBoardQueryHandler = new GetPeriodicBillBoardQueryHandler(_logger.Object, _mapper, _getTvShowRecommendation.Object, _getMovieRecommendation.Object);
         var billboard = await getPeriodicBillBoardQueryHandler.Handle(request, CancellationToken.None);
 
         //Assert.NotNull(billboard.Movies);
@@ -75,11 +77,11 @@ public class GetPeriodicBillBoardQueryHandlerTests
         var similarMovies = GetSimilarMoviesForTest();
         var similarMoviesRecommendations = _mapper.Map<List<Movie>, List<MovieRecommendation>>(similarMovies.Result);
 
-        _httpService.Setup(c => c.DiscoverMovies(It.IsAny<DateTime>(), It.IsAny<DateTime>())).Returns(movieResults);
-        _httpService.Setup(c => c.DiscoverTvShows(It.IsAny<DateTime>(), It.IsAny<DateTime>())).Returns(tvShowResults);
-        _movieRepository.Setup(m => m.GetMostSuccesfulMoviesByDate(It.IsAny<DateTime>(), It.IsAny<DateTime>())).Returns(similarMovies);
+        _getMovieRecommendation.Setup(c => c.GetMovieRecommendations(It.IsAny<DateTime>(), It.IsAny<DateTime>())).Returns(movieResults);
+        _getTvShowRecommendation.Setup(c => c.GetTVShowRecomendations(It.IsAny<DateTime>(), It.IsAny<DateTime>())).Returns(tvShowResults);
+        _getMovieRecommendation.Setup(m => m.GetMostSuccesfulMoviesFromDb(It.IsAny<DateTime>(), It.IsAny<DateTime>())).Returns(similarMovies);
 
-        var getPeriodicBillBoardQueryHandler = new GetPeriodicBillBoardQueryHandler(_httpService.Object, _movieRepository.Object, _logger.Object, _mapper);
+        var getPeriodicBillBoardQueryHandler = new GetPeriodicBillBoardQueryHandler(_logger.Object, _mapper, _getTvShowRecommendation.Object, _getMovieRecommendation.Object);
         var billboard = await getPeriodicBillBoardQueryHandler.Handle(request, CancellationToken.None);
 
         //Assert.NotNull(billboard.Movies);
